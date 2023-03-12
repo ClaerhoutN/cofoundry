@@ -28,5 +28,6 @@ public interface ICofoundryDbContextInitializer
     /// <returns>
     /// DbContextOptionsBuilder instance for method chaining.
     /// </returns>
-    DbContextOptionsBuilder Configure(DbContext dbContext, DbContextOptionsBuilder optionsBuilder);
+    DbContextOptionsBuilder ConfigureSQL(DbContext dbContext, DbContextOptionsBuilder optionsBuilder);
+    DbContextOptionsBuilder ConfigureCosmos(DbContext dbContext, DbContextOptionsBuilder optionsBuilder);
 }

@@ -54,13 +54,13 @@ public class EntityFrameworkSqlExecutor : IEntityFrameworkSqlExecutor
             // see https://github.com/aspnet/EntityFramework/issues/1862
             // and https://github.com/aspnet/EntityFrameworkCore/issues/10753
 
-            var results = dbContext.Set<T>().FromSqlRaw(cmd, sqlParams);
+            var results = RelationalQueryableExtensions.FromSqlRaw(dbContext.Set<T>(), cmd, sqlParams);
 
             return results;
         }
         else
         {
-            return dbContext.Set<T>().FromSqlRaw(spName);
+            return RelationalQueryableExtensions.FromSqlRaw(dbContext.Set<T>(), spName);
         }
     }
 

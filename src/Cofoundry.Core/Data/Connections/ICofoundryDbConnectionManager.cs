@@ -28,5 +28,7 @@ public interface ICofoundryDbConnectionManager
     /// for disposing of this instance; you should open and close the connection
     /// as needed but you should not dispose of it.
     /// </summary>
-    DbConnection GetShared();
+    DbConnection GetSharedSQLServer();
+    string GetSharedConnectionStringCosmos();
+    string GetSharedDatabaseNameCosmos();
 }

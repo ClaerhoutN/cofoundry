@@ -45,16 +45,29 @@ public class CofoundryDbContextInitializer : ICofoundryDbContextInitializer
     /// <returns>
     /// DbContextOptionsBuilder instance for method chaining.
     /// </returns>
-    public DbContextOptionsBuilder Configure(DbContext dbContext, DbContextOptionsBuilder optionsBuilder)
+    public DbContextOptionsBuilder ConfigureSQL(DbContext dbContext, DbContextOptionsBuilder optionsBuilder)
     {
         ArgumentNullException.ThrowIfNull(dbContext);
         ArgumentNullException.ThrowIfNull(optionsBuilder);
 
         optionsBuilder.UseLoggerFactory(_loggerFactory);
 
-        var connection = _cofoundryDbConnectionFactory.GetShared();
+        var connection = _cofoundryDbConnectionFactory.GetSharedSQLServer();
         optionsBuilder.UseSqlServer(connection);
 
         return optionsBuilder;
+    }
+
+    public DbContextOptionsBuilder ConfigureCosmos(DbContext dbContext, DbContextOptionsBuilder optionsBuilder) 
+    {
+        ArgumentNullException.ThrowIfNull(dbContext);
+        ArgumentNullException.ThrowIfNull(optionsBuilder);
+
+        optionsBuilder.UseLoggerFactory(_loggerFactory);
+
+        optionsBuilder.UseCosmos(_cofoundryDbConnectionFactory.GetSharedConnectionStringCosmos(), _cofoundryDbConnectionFactory.GetSharedDatabaseNameCosmos());
+
+        return optionsBuilder;
+
     }
 }

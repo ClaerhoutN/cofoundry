@@ -22,7 +22,7 @@ public partial class CofoundryDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        _cofoundryDbContextInitializer.Configure(this, optionsBuilder);
+        _cofoundryDbContextInitializer.ConfigureSQL(this, optionsBuilder);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -12,5 +12,9 @@ public class DatabaseSettings : CofoundryConfigurationSettingsBase
     /// The connection string to the Cofoundry database.
     /// </summary>
     [Required]
-    public string ConnectionString { get; set; }
+    public string ConnectionStringSQLServer { get; set; }
+    [Required]
+    public string ConnectionStringCosmosDb { get; set; }
+    [Required]
+    public string DatabaseNameCosmosDb { get; set; }
 }

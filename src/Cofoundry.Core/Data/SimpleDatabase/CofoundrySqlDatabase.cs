@@ -18,7 +18,7 @@ public class CofoundrySqlDatabase : IDisposable, ICofoundryDatabase
         ICofoundryDbConnectionManager _cofoundryDbConnectionFactory
         )
     {
-        var dbConnection = _cofoundryDbConnectionFactory.GetShared();
+        var dbConnection = _cofoundryDbConnectionFactory.GetSharedSQLServer();
 
         if (dbConnection is SqlConnection)
         {

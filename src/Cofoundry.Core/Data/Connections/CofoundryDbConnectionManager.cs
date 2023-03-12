@@ -35,7 +35,7 @@ public class CofoundryDbConnectionManager
     /// </summary>
     public DbConnection Create()
     {
-        return new SqlConnection(_databaseSettings.ConnectionString);
+        return new SqlConnection(_databaseSettings.ConnectionStringSQLServer);
     }
 
     /// <summary>
@@ -44,7 +44,7 @@ public class CofoundryDbConnectionManager
     /// for disposing of this instance; you should open and close the connection
     /// as needed but you should not dispose of it.
     /// </summary>
-    public DbConnection GetShared()
+    public DbConnection GetSharedSQLServer()
     {
         if (_dbConnection != null)
         {
@@ -55,6 +55,8 @@ public class CofoundryDbConnectionManager
 
         return _dbConnection;
     }
+    public string GetSharedConnectionStringCosmos() => _databaseSettings.ConnectionStringCosmosDb;
+    public string GetSharedDatabaseNameCosmos() => _databaseSettings.DatabaseNameCosmosDb;
 
     public void Dispose()
     {
