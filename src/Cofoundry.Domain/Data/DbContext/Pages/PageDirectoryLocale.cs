@@ -1,6 +1,6 @@
 namespace Cofoundry.Domain.Data;
 
-public class PageDirectoryLocale
+public class PageDirectoryLocale /*: ICreateable*/ //TODO
 {
     public int PageDirectoryLocaleId { get; set; }
     public int PageDirectoryId { get; set; }
