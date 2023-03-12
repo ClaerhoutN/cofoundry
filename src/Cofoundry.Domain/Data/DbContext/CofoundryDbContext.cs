@@ -220,13 +220,6 @@ public partial class CofoundryDbContext : DbContext
     public DbSet<PageDirectory> PageDirectories { get; set; }
 
     /// <summary>
-    /// Information about the full directory path and it's position in the directory 
-    /// heirachy. This table is automatically updated whenever changes are made to the page 
-    /// directory heirarchy and should be treated as read-only.
-    /// </summary>
-    public DbSet<PageDirectoryPath> PageDirectoryPaths { get; set; }
-
-    /// <summary>
     /// <para>
     /// A "closure table" for the page directory heirarchy structure that connects
     /// every page directory with each of it's ancestor directories. The table also

@@ -1,5 +1,6 @@
 ﻿using Cofoundry.Core.Validation;
 using Cofoundry.Domain.Data;
+using Cofoundry.Domain.Data.Cosmos;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cofoundry.Domain.Tests.Integration.PageDirectories.Commands;
@@ -176,8 +177,9 @@ public class AddPageDirectoryCommandHandlerTests
         var dir4Id = await app.TestData.PageDirectories().AddAsync("green", dir3Id);
 
         var dbContext = app.Services.GetRequiredService<CofoundryDbContext>();
+        var pageDirectoryPathContext = app.Services.GetRequiredService<PageDirectoryPathContext>();
 
-        var directoryPath = await dbContext
+        var directoryPath = await pageDirectoryPathContext
             .PageDirectoryPaths
             .AsNoTracking()
             .Where(d => d.PageDirectoryId == dir4Id)

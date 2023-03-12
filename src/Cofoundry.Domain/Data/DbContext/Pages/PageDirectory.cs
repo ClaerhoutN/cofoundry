@@ -93,10 +93,11 @@ public class PageDirectory : IEntityAccessRestrictable<PageDirectoryAccessRule>,
     public virtual ICollection<PageDirectoryClosure> DescendantPageDirectories { get; set; }
 
     /// <summary>
-    /// Information about the full directory path and it's position in the directory 
-    /// heirachy. This table is automatically updated whenever changes are made to the page 
-    /// directory heirarchy and should be treated as read-only.
+    /// Information about the full directory path and its position in the directory 
+    /// hierarchy. This table is automatically updated whenever changes are made to the page 
+    /// directory hierarchy and should be treated as read-only.
     /// </summary>
+    [System.ComponentModel.DataAnnotations.Schema.NotMapped]
     public virtual PageDirectoryPath PageDirectoryPath { get; set; }
 
     public int GetId()

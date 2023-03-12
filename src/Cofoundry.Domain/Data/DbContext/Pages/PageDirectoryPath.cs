@@ -13,12 +13,6 @@ public class PageDirectoryPath
     public int PageDirectoryId { get; set; }
 
     /// <summary>
-    /// The parent <see cref="PageDirectory"/>. This can only be null for the 
-    /// root directory.
-    /// </summary>
-    public virtual PageDirectory PageDirectory { get; set; }
-
-    /// <summary>
     /// The zero-based depth of the directory in the heirarchy structure, where
     /// 0 is the depth of the singular root node.
     /// </summary>

@@ -1,4 +1,5 @@
 ﻿using Cofoundry.Domain.Data;
+using Cofoundry.Domain.Data.Cosmos;
 using Cofoundry.Domain.Internal;
 
 namespace Cofoundry.Domain;
@@ -12,16 +13,19 @@ public class GetPageDirectoryAccessDetailsByPageDirectoryIdQueryHandler
     , IPermissionRestrictedQueryHandler<GetPageDirectoryAccessDetailsByPageDirectoryIdQuery, PageDirectoryAccessRuleSetDetails>
 {
     private readonly CofoundryDbContext _dbContext;
+    private readonly PageDirectoryPathContext _pageDirectoryPathContext;
     private readonly IEntityAccessRuleSetDetailsMapper _entityAccessDetailsMapper;
     private readonly IPageDirectoryMicroSummaryMapper _pageDirectoryMicroSummaryMapper;
 
     public GetPageDirectoryAccessDetailsByPageDirectoryIdQueryHandler(
         CofoundryDbContext dbContext,
+        PageDirectoryPathContext pageDirectoryPathContext, 
         IEntityAccessRuleSetDetailsMapper entityAccessDetailsMapper,
         IPageDirectoryMicroSummaryMapper pageDirectoryMicroSummaryMapper
         )
     {
         _dbContext = dbContext;
+        pageDirectoryPathContext = _pageDirectoryPathContext;
         _entityAccessDetailsMapper = entityAccessDetailsMapper;
         _pageDirectoryMicroSummaryMapper = pageDirectoryMicroSummaryMapper;
     }
@@ -58,7 +62,6 @@ public class GetPageDirectoryAccessDetailsByPageDirectoryIdQueryHandler
             .Include(d => d.AncestorPageDirectory)
             .ThenInclude(d => d.AccessRules)
             .Include(d => d.AncestorPageDirectory)
-            .ThenInclude(d => d.PageDirectoryPath)
             .FilterByDescendantId(dbPageDirectory.PageDirectoryId)
             .FilterNotSelfReferencing()
             .Where(d => d.DescendantPageDirectoryId == dbPageDirectory.PageDirectoryId && d.AncestorPageDirectory.AccessRules.Any())
@@ -69,6 +72,8 @@ public class GetPageDirectoryAccessDetailsByPageDirectoryIdQueryHandler
 
         foreach (var dbInheritedRule in dbInheritedRules)
         {
+            if (dbInheritedRule.AncestorPageDirectory != null)
+                dbInheritedRule.AncestorPageDirectory.PageDirectoryPath = await _pageDirectoryPathContext.PageDirectoryPaths.AsNoTracking().FirstOrDefaultAsync(x => x.PageDirectoryId == dbInheritedRule.AncestorPageDirectory.PageDirectoryId);
             var inheritedDirectory = new InheritedPageDirectoryAccessDetails();
             inheritedDirectory.PageDirectory = _pageDirectoryMicroSummaryMapper.Map(dbInheritedRule.AncestorPageDirectory);
             await _entityAccessDetailsMapper.MapAsync(dbInheritedRule.AncestorPageDirectory, inheritedDirectory, executionContext, (dbRule, rule) =>
