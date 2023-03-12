@@ -147,10 +147,6 @@ delete Cofoundry.[Page]
 from Cofoundry.[Page] e
 inner join @DeletedPageDirectory d on e.PageDirectoryId = d.PageDirectoryId
 
-delete Cofoundry.PageDirectoryLocale
-from Cofoundry.PageDirectoryLocale e
-inner join @DeletedPageDirectory d on e.PageDirectoryId = d.PageDirectoryId
-
 delete Cofoundry.PageDirectory 
 from Cofoundry.PageDirectory e
 inner join @DeletedPageDirectory d on e.PageDirectoryId = d.PageDirectoryId

@@ -254,8 +254,6 @@ public partial class CofoundryDbContext : DbContext
     /// </summary>
     public DbSet<PageDirectoryAccessRule> PageDirectoryAccessRules { get; set; }
 
-    public DbSet<PageDirectoryLocale> PageDirectoryLocales { get; set; }
-
     /// <summary>
     /// A block can optionally have display templates associated with it, 
     /// which will give the user a choice about how the data is rendered out

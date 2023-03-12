@@ -43,22 +43,6 @@ go
 exec sp_rename 'Cofoundry.PageDirectory.UIX_WebDirectory_UrlPath', 'UIX_PageDirectory_UrlPath', 'index'
 go
 
--- WebDirectoryLocale -> PageDirectoryLocale
-exec sp_rename 'Cofoundry.WebDirectoryLocale', 'PageDirectoryLocale'
-go
-exec sp_rename 'Cofoundry.PageDirectoryLocale.WebDirectoryLocaleId' , 'PageDirectoryLocaleId', 'column'
-go
-exec sp_rename 'Cofoundry.PageDirectoryLocale.WebDirectoryId' , 'PageDirectoryId', 'column'
-go
-exec sp_rename 'Cofoundry.PK_WebDirectoryLocale', 'PK_PageDirectoryLocale', 'object'
-go
-exec sp_rename 'Cofoundry.FK_WebDirectoryLocale_CreatorUser', 'FK_PageDirectoryLocale_CreatorUser', 'object'
-go
-exec sp_rename 'Cofoundry.FK_WebDirectoryLocale_Locale', 'FK_PageDirectoryLocale_Locale', 'object'
-go
-exec sp_rename 'Cofoundry.FK_WebDirectoryLocale_WebDirectory', 'FK_PageDirectoryLocale_PageDirectory', 'object'
-go
-
 -- Page.WebDirectoryId
 
 exec sp_rename 'Cofoundry.[Page].WebDirectoryId' , 'PageDirectoryId', 'column'

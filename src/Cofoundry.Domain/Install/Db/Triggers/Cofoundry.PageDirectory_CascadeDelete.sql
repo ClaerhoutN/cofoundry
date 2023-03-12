@@ -45,10 +45,6 @@ begin
 	from Cofoundry.PageDirectoryClosure e
 	inner join @PageDirectoryToDelete d on e.DescendantPageDirectoryId = d.PageDirectoryId or e.AncestorPageDirectoryId = d.PageDirectoryId
 
-    delete Cofoundry.PageDirectoryLocale
-	from Cofoundry.PageDirectoryLocale e
-	inner join @PageDirectoryToDelete d on e.PageDirectoryId = d.PageDirectoryId
-
     delete Cofoundry.PageDirectory
 	from Cofoundry.PageDirectory e
 	inner join @PageDirectoryToDelete d on e.ParentPageDirectoryId = d.PageDirectoryId

@@ -173,23 +173,6 @@ create table Cofoundry.WebDirectory (
 create unique index UIX_WebDirectory_UrlPath on Cofoundry.WebDirectory (ParentWebDirectoryId, UrlPath) where (IsActive=1)
 
 
-/****** Cofoundry.WebDirectoryLocale ******/
-
-create table Cofoundry.WebDirectoryLocale (
-
-	WebDirectoryLocaleId int identity(1,1) not null,
-	WebDirectoryId int not null,
-	LocaleId int not null,
-	UrlPath nvarchar(64) not null,
-	CreateDate datetime2(4) not null,
-	CreatorId int not null,
-
-	constraint PK_WebDirectoryLocale primary key (WebDirectoryLocaleId),
-	constraint FK_WebDirectoryLocale_CreatorUser foreign key (CreatorId) references Cofoundry.[User] (UserId),
-	constraint FK_WebDirectoryLocale_WebDirectory foreign key (WebDirectoryId) references Cofoundry.WebDirectory (WebDirectoryId)
-)
-
-
 /****** Cofoundry.WorkFlowStatus ******/
 
 create table Cofoundry.WorkFlowStatus (

@@ -258,7 +258,6 @@ alter table Cofoundry.PageBlockType alter column UpdateDate datetime2(7) not nul
 alter table Cofoundry.PageBlockTypeTemplate alter column CreateDate datetime2(7) not null
 alter table Cofoundry.PageDirectory alter column CreateDate datetime2(7) not null
 alter table Cofoundry.PageDirectoryAccessRule alter column CreateDate datetime2(7) not null
-alter table Cofoundry.PageDirectoryLocale alter column CreateDate datetime2(7) not null
 alter table Cofoundry.PageGroup alter column CreateDate datetime2(7) not null
 alter table Cofoundry.PageAccessRule alter column CreateDate datetime2(7) not null
 alter table Cofoundry.PageGroupItem alter column CreateDate datetime2(7) not null

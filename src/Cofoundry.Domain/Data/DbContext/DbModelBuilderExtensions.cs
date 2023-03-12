@@ -115,7 +115,6 @@ public static class DbModelBuilderExtensions
             .ApplyConfiguration(new PageDirectoryPathMap())
             .ApplyConfiguration(new PageDirectoryClosureMap())
             .ApplyConfiguration(new PageDirectoryAccessRuleMap())
-            .ApplyConfiguration(new PageDirectoryLocaleMap())
             .ApplyConfiguration(new EntityDefinitionMap())
             .ApplyConfiguration(new UnstructuredDataDependencyMap())
             .ApplyConfiguration(new CustomEntityDefinitionMap())

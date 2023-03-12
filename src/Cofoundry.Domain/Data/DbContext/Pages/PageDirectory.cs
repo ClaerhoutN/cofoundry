@@ -57,6 +57,7 @@ public class PageDirectory : IEntityAccessRestrictable<PageDirectoryAccessRule>,
     /// a heirachical structure.
     /// </summary>
     public virtual ICollection<PageDirectory> ChildPageDirectories { get; set; } = new List<PageDirectory>();
+    [System.ComponentModel.DataAnnotations.Schema.NotMapped]
 
     public virtual ICollection<PageDirectoryLocale> PageDirectoryLocales { get; set; } = new List<PageDirectoryLocale>();
 

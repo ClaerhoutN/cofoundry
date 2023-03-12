@@ -1,4 +1,5 @@
 ﻿using Cofoundry.Domain.Data;
+using Cofoundry.Domain.Data.Cosmos;
 
 namespace Cofoundry.Domain.Internal;
 
@@ -11,14 +12,17 @@ public class GetAllPageDirectoryRoutesQueryHandler
     , IPermissionRestrictedQueryHandler<GetAllPageDirectoryRoutesQuery, ICollection<PageDirectoryRoute>>
 {
     private readonly CofoundryDbContext _dbContext;
+    private readonly PageDirectoryLocaleContext _pageDirectoryLocaleContext;
     private readonly IPageDirectoryRouteMapper _pageDirectoryRouteMapper;
 
     public GetAllPageDirectoryRoutesQueryHandler(
         CofoundryDbContext dbContext,
+        PageDirectoryLocaleContext pageDirectoryLocaleContext, 
         IPageDirectoryRouteMapper pageDirectoryRouteMapper
         )
     {
         _dbContext = dbContext;
+        _pageDirectoryLocaleContext = pageDirectoryLocaleContext;
         _pageDirectoryRouteMapper = pageDirectoryRouteMapper;
     }
 
@@ -28,9 +32,10 @@ public class GetAllPageDirectoryRoutesQueryHandler
             .PageDirectories
             .AsNoTracking()
             .Include(d => d.AccessRules)
-            .Include(d => d.PageDirectoryLocales)
             .ToListAsync();
-
+        foreach( var d in dbPageDirectories ) {
+            d.PageDirectoryLocales = await _pageDirectoryLocaleContext.PageDirectoryLocales.Where(x => x.PageDirectoryId == d.PageDirectoryId).ToListAsync();
+        }
         var activeWebRoutes = _pageDirectoryRouteMapper.Map(dbPageDirectories);
 
         return activeWebRoutes;

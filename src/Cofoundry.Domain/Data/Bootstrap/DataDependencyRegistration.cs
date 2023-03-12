@@ -12,6 +12,7 @@ public class DataDependencyRegistration : IDependencyRegistration
             .Register<CofoundryDbContext>(new Type[] { typeof(CofoundryDbContext), typeof(DbContext) }, RegistrationOptions.Scoped())
             .Register<UserAreaContext>(new Type[] { typeof(UserAreaContext) }, RegistrationOptions.Scoped())
             .Register<LocaleContext>(new Type[] { typeof(LocaleContext) }, RegistrationOptions.Scoped())
+            .Register<PageDirectoryLocaleContext>(new Type[] { typeof(PageDirectoryLocaleContext) }, RegistrationOptions.Scoped())
             .Register<IFileStoreService, FileSystemFileStoreService>()
             .Register<IDbUnstructuredDataSerializer, DbUnstructuredDataSerializer>()
             .Register<ICustomEntityStoredProcedures, CustomEntityStoredProcedures>()
