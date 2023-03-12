@@ -117,7 +117,6 @@ public class InternalRoleRepository : IInternalRoleRepository
         return _dbContext
             .Roles
             .AsNoTracking()
-            .Include(r => r.UserArea)
             .Include(r => r.RolePermissions)
             .ThenInclude(p => p.Permission);
     }

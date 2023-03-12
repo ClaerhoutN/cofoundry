@@ -66,7 +66,6 @@ public static class DbModelBuilderExtensions
             .ApplyConfiguration(new UserMap())
             .ApplyConfiguration(new UserAuthenticationLogMap())
             .ApplyConfiguration(new UserAuthenticationFailLogMap())
-            .ApplyConfiguration(new UserAreaMap())
             .ApplyConfiguration(new RoleMap())
             .ApplyConfiguration(new PermissionMap())
             .ApplyConfiguration(new RolePermissionMap())

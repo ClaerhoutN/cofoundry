@@ -17,10 +17,6 @@ public class UserAuthenticationFailLogMap : IEntityTypeConfiguration<UserAuthent
             .IsRequired()
             .HasMaxLength(150);
 
-        builder.HasOne(s => s.UserArea)
-            .WithMany()
-            .HasForeignKey(d => d.UserAreaCode);
-
         builder.HasOne(s => s.IPAddress)
             .WithMany()
             .HasForeignKey(d => d.IPAddressId);

@@ -1,4 +1,5 @@
 ﻿using Cofoundry.Domain.Data;
+using Cofoundry.Domain.Data.Cosmos;
 
 namespace Cofoundry.Domain.Internal;
 
@@ -6,15 +7,15 @@ public class EnsureUserAreaExistsCommandHandler
     : ICommandHandler<EnsureUserAreaExistsCommand>
     , IIgnorePermissionCheckHandler
 {
-    private readonly CofoundryDbContext _dbContext;
+    private readonly UserAreaContext _userAreaContext;
     private readonly IUserAreaDefinitionRepository _userAreaRepository;
 
     public EnsureUserAreaExistsCommandHandler(
-        CofoundryDbContext dbContext,
+        UserAreaContext userAreaContext,
         IUserAreaDefinitionRepository userAreaRepository
         )
     {
-        _dbContext = dbContext;
+        _userAreaContext = userAreaContext;
         _userAreaRepository = userAreaRepository;
     }
 
@@ -23,7 +24,7 @@ public class EnsureUserAreaExistsCommandHandler
         var userArea = _userAreaRepository.GetRequiredByCode(command.UserAreaCode);
         EntityNotFoundException.ThrowIfNull(userArea, command.UserAreaCode);
 
-        var dbUserArea = await _dbContext
+        var dbUserArea = await _userAreaContext
             .UserAreas
             .SingleOrDefaultAsync(a => a.UserAreaCode == userArea.UserAreaCode);
 
@@ -33,7 +34,7 @@ public class EnsureUserAreaExistsCommandHandler
             dbUserArea.UserAreaCode = userArea.UserAreaCode;
             dbUserArea.Name = userArea.Name;
 
-            _dbContext.UserAreas.Add(dbUserArea);
+            _userAreaContext.UserAreas.Add(dbUserArea);
         }
     }
 }

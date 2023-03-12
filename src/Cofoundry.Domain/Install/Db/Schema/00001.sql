@@ -82,17 +82,6 @@ create table Cofoundry.Locale (
 )
 
 
-/****** Cofoundry.UserArea ******/
-
-create table Cofoundry.UserArea (
-
-	UserAreaCode char(3) not null,
-	Name nvarchar(20) null,
-
-	constraint PK_UserArea primary key (UserAreaCode)
-)
-
-
 /****** Cofoundry.[Role] ******/
 
 create table Cofoundry.[Role] (
@@ -102,8 +91,7 @@ create table Cofoundry.[Role] (
 	SpecialistRoleTypeCode char(3) null,
 	UserAreaCode char(3) not null,
 
-	constraint PK_Role primary key (RoleId),
-	constraint FK_Role_UserArea foreign key (UserAreaCode) references Cofoundry.UserArea (UserAreaCode)
+	constraint PK_Role primary key (RoleId)
 )
 
 create unique index UIX_Role_Title on Cofoundry.[Role] (UserAreaCode, Title)
@@ -134,7 +122,6 @@ create table Cofoundry.[User] (
 	constraint PK_User primary key (UserId),
 	constraint FK_User_CreatorUser foreign key (CreatorId) references Cofoundry.[User] (UserId),
 	constraint FK_User_Role foreign key (RoleId) references Cofoundry.[Role] (RoleId),
-	constraint FK_User_UserArea foreign key (UserAreaCode) references Cofoundry.UserArea (UserAreaCode),
 	constraint CK_CreatorIdNotSelf check (UserId <> CreatorId)
 )
 

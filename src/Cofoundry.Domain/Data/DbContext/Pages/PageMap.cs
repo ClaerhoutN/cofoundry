@@ -33,10 +33,6 @@ public class PageMap : IEntityTypeConfiguration<Page>
             .WithMany(s => s.Pages)
             .HasForeignKey(d => d.PageDirectoryId);
 
-        builder.HasOne(s => s.UserAreaForSignInRedirect)
-            .WithMany()
-            .HasForeignKey(s => s.UserAreaCodeForSignInRedirect);
-
         builder.Property(s => s.PublishDate).IsUtc();
         builder.Property(s => s.LastPublishDate).IsUtc();
 

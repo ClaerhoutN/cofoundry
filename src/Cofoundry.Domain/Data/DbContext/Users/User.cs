@@ -170,12 +170,6 @@ public class User
     public string UserAreaCode { get; set; }
 
     /// <summary>
-    /// The Cofoundry user system can be partitioned into user areas. This enables
-    /// reuse of user functionality to create custom sign in areas in your application.
-    /// </summary>
-    public virtual UserArea UserArea { get; set; }
-
-    /// <summary>
     /// There can be only one (system account). This is an account that
     /// can be impersonated and used to import data or in special
     /// cases used to elevate privileges

@@ -22,7 +22,6 @@ go
 alter table Cofoundry.[Page] add AccessRuleViolationActionId int null
 alter table Cofoundry.[Page] add UserAreaCodeForSignInRedirect char(3) null
 go
-alter table Cofoundry.[Page] add constraint FK_Page_UserAreasForSignInRedirect foreign key (UserAreaCodeForSignInRedirect) references Cofoundry.UserArea (UserAreaCode)
 alter table Cofoundry.[Page] add constraint CK_Page_UserAreaCodeForSignInRedirect_NotCofoundryAdmin check (UserAreaCodeForSignInRedirect <> 'COF')
 go
 update Cofoundry.[Page] set AccessRuleViolationActionId = 0
@@ -41,7 +40,6 @@ create table Cofoundry.PageAccessRule (
 
 	constraint PK_PageAccessRule primary key (PageAccessRuleId),
 	constraint FK_PageAccessRule_Page foreign key (PageId) references Cofoundry.[Page] (PageId),
-	constraint FK_PageAccessRule_UserArea foreign key (UserAreaCode) references Cofoundry.UserArea (UserAreaCode),
 	constraint FK_PageAccessRule_Role foreign key (RoleId) references Cofoundry.[Role] (RoleId),
 	constraint FK_PageAccessRule_CreatorUser foreign key (CreatorId) references Cofoundry.[User] (UserId),
 	constraint CK_PageAccessRule_NotCofoundryAdmin check (UserAreaCode <> 'COF')
@@ -54,7 +52,6 @@ go
 alter table Cofoundry.PageDirectory add AccessRuleViolationActionId int null
 alter table Cofoundry.PageDirectory add UserAreaCodeForSignInRedirect char(3) null
 go
-alter table Cofoundry.PageDirectory add constraint FK_PageDirectory_UserAreaForSignInRedirect foreign key (UserAreaCodeForSignInRedirect) references Cofoundry.UserArea (UserAreaCode)
 alter table Cofoundry.PageDirectory add constraint CK_PageDirectory_UserAreaCodeForSignInedirect_NotCofoundryAdmin check (UserAreaCodeForSignInRedirect <> 'COF')
 go
 update Cofoundry.PageDirectory set AccessRuleViolationActionId = 0
@@ -71,7 +68,6 @@ create table Cofoundry.PageDirectoryAccessRule (
 
 	constraint PK_PageDirectoryAccessRule primary key (PageDirectoryAccessRuleId),
 	constraint FK_PageDirectoryAccessRule_Page foreign key (PageDirectoryId) references Cofoundry.PageDirectory (PageDirectoryId),
-	constraint FK_PageDirectoryAccessRule_UserArea foreign key (UserAreaCode) references Cofoundry.UserArea (UserAreaCode),
 	constraint FK_PageDirectoryAccessRule_Role foreign key (RoleId) references Cofoundry.[Role] (RoleId),
 	constraint FK_PageDirectoryAccessRule_CreatorUser foreign key (CreatorId) references Cofoundry.[User] (UserId),
 	constraint CK_PageDirectoryAccessRule_NotCofoundryAdmin check (UserAreaCode <> 'COF')
@@ -447,8 +443,7 @@ create table Cofoundry.UserAuthenticationFailLog (
 	CreateDate datetime2(7) not null,
 
 	constraint PK_UserAuthenticationFailed primary key (UserAuthenticationFailLogId),
-	constraint FK_UserAuthenticationFailed_IPAddressId foreign key (IPAddressId) references Cofoundry.IPAddress (IPAddressId),
-	constraint FK_UserAuthenticationFailed_UserAreaCode foreign key (UserAreaCode) references Cofoundry.UserArea (UserAreaCode)
+	constraint FK_UserAuthenticationFailed_IPAddressId foreign key (IPAddressId) references Cofoundry.IPAddress (IPAddressId)
 )
 
 create index IX_UserAuthenticationFailLog_IPAddress on Cofoundry.UserAuthenticationFailLog (UserAreaCode, IPAddressId, CreateDate)

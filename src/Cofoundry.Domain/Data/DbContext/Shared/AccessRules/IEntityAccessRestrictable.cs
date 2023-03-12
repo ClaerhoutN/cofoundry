@@ -26,13 +26,6 @@ public interface IEntityAccessRestrictable<TAccessRule>
     string UserAreaCodeForSignInRedirect { get; set; }
 
     /// <summary>
-    /// The <see cref="UserAreaForSignInRedirect"/> with a sign in page to redirect to when a user 
-    /// does not meet the criteria of the access rules directly associated with 
-    /// this entity.
-    /// </summary>
-    UserArea UserAreaForSignInRedirect { get; set; }
-
-    /// <summary>
     /// <para>
     /// Access rules are used to restrict access to a website resource to users
     /// fulfilling certain criteria such as a specific user area or role.

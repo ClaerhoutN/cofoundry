@@ -18,9 +18,5 @@ public class RoleMap : IEntityTypeConfiguration<Role>
 
         builder.Property(s => s.UserAreaCode)
             .IsCharType(3);
-
-        builder.HasOne(s => s.UserArea)
-            .WithMany()
-            .HasForeignKey(s => s.UserAreaCode);
     }
 }

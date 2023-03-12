@@ -26,7 +26,7 @@ public class NewPasswordValidationContext : INewPasswordValidationContext
         var context = new NewPasswordValidationContext()
         {
             Email = user.Email,
-            UserAreaCode = user.UserAreaCode ?? user.UserArea?.UserAreaCode,
+            UserAreaCode = user.UserAreaCode,
             UserId = user.UserId,
             Username = user.Username
         };

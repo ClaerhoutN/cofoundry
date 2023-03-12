@@ -331,13 +331,6 @@ public partial class CofoundryDbContext : DbContext
     public DbSet<User> Users { get; set; }
 
     /// <summary>
-    /// Users can be partitioned into different 'User Areas' that enabled the identity system use by the Cofoundry administration area 
-    /// to be reused for other purposes, but this isn't a common scenario and often there will only be the Cofoundry UserArea. UserAreas
-    /// are defined in code by defining an IUserAreaDefinition
-    /// </summary>
-    public DbSet<UserArea> UserAreas { get; set; }
-
-    /// <summary>
     /// A logging table that record failed user authentication attempts.
     /// </summary>
     public DbSet<UserAuthenticationFailLog> UserAuthenticationFailLogs { get; set; }

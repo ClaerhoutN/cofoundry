@@ -62,8 +62,8 @@ public class SearchRolesQueryHandler
         else
         {
             dbQuery = dbQuery
-                .OrderBy(r => r.UserArea.Name)
-                .ThenBy(r => r.Title);
+                //.OrderBy(r => r.UserArea.Name) //TODO: check impact
+                .OrderBy(r => r.Title);
         }
 
         return dbQuery;

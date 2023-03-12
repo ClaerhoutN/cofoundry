@@ -31,11 +31,6 @@ public class Role
     public string UserAreaCode { get; set; }
 
     /// <summary>
-    /// A role must be assigned to a user area e.g. CofoundryAdminUserArea.
-    /// </summary>
-    public virtual UserArea UserArea { get; set; }
-
-    /// <summary>
     /// Collection of permissions that describe the actions this role is 
     /// permitted to perform.
     /// </summary>

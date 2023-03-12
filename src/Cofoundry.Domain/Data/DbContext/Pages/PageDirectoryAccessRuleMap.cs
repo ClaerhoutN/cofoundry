@@ -28,11 +28,6 @@ public class PageDirectoryAccessRuleMap : IEntityTypeConfiguration<PageDirectory
             .WithMany(d => d.PageDirectoryAccessRules)
             .HasForeignKey(s => s.RoleId);
 
-        builder
-            .HasOne(s => s.UserArea)
-            .WithMany(d => d.PageDirectoryAccessRules)
-            .HasForeignKey(s => s.UserAreaCode);
-
         CreateAuditableMappingHelper.Map(builder);
     }
 }

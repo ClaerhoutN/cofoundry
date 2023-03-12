@@ -33,8 +33,6 @@ public class PageAccessRule : IEntityAccessRule
 
     public string UserAreaCode { get; set; }
 
-    public virtual UserArea UserArea { get; set; }
-
     public int? RoleId { get; set; }
 
     public virtual Role Role { get; set; }

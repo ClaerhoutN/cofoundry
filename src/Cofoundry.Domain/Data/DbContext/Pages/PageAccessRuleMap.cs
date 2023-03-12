@@ -23,11 +23,6 @@ public class PageAccessRuleMap : IEntityTypeConfiguration<PageAccessRule>
             .WithMany(d => d.PageAccessRules)
             .HasForeignKey(s => s.RoleId);
 
-        builder
-            .HasOne(s => s.UserArea)
-            .WithMany(d => d.PageAccessRules)
-            .HasForeignKey(s => s.UserAreaCode);
-
         CreateAuditableMappingHelper.Map(builder);
     }
 }

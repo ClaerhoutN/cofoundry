@@ -43,7 +43,7 @@ public class UserUpdateCommandHelper : IUserUpdateCommandHelper
         ArgumentNullException.ThrowIfNull(user);
         ArgumentNullException.ThrowIfNull(executionContext);
 
-        var userAreaCode = user.UserArea?.UserAreaCode ?? user.UserAreaCode;
+        var userAreaCode = user.UserAreaCode;
         if (userAreaCode == null)
         {
             throw new ArgumentException("user parameter must have a user area set.", nameof(user));

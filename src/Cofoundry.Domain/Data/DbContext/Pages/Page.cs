@@ -87,8 +87,6 @@ public class Page : IEntityAccessRestrictable<PageAccessRule>, ICreateAuditable,
 
     public string UserAreaCodeForSignInRedirect { get; set; }
 
-    public virtual UserArea UserAreaForSignInRedirect { get; set; }
-
     public DateTime CreateDate { get; set; }
 
     public int CreatorId { get; set; }

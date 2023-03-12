@@ -12,11 +12,6 @@ public interface IEntityAccessRule : ICreateAuditable
     string UserAreaCode { get; set; }
 
     /// <summary>
-    /// The <see cref="UserArea"/> to restrict access to.
-    /// </summary>
-    UserArea UserArea { get; set; }
-
-    /// <summary>
     /// The optional id of the <see cref="Role"/> that this rule restricts page 
     /// access to. The role must belong to the user area defined by <see cref="UserAreaCode"/>.
     /// </summary>

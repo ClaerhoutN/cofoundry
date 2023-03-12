@@ -1,5 +1,6 @@
 ﻿using Cofoundry.Core.Data;
 using Cofoundry.Domain.Data;
+using Cofoundry.Domain.Data.Cosmos;
 
 namespace Cofoundry.Domain.Internal;
 
@@ -12,6 +13,7 @@ public class AddUserCommandHandler
     , IPermissionRestrictedCommandHandler<AddUserCommand>
 {
     private readonly CofoundryDbContext _dbContext;
+    private readonly UserAreaContext _userAreaContext;
     private readonly IPasswordCryptographyService _passwordCryptographyService;
     private readonly UserCommandPermissionsHelper _userCommandPermissionsHelper;
     private readonly IUserAreaDefinitionRepository _userAreaRepository;
@@ -23,6 +25,7 @@ public class AddUserCommandHandler
 
     public AddUserCommandHandler(
         CofoundryDbContext dbContext,
+        UserAreaContext userAreaContext, 
         IPasswordCryptographyService passwordCryptographyService,
         UserCommandPermissionsHelper userCommandPermissionsHelper,
         IUserAreaDefinitionRepository userAreaRepository,
@@ -34,6 +37,7 @@ public class AddUserCommandHandler
         )
     {
         _dbContext = dbContext;
+        _userAreaContext = userAreaContext;
         _passwordCryptographyService = passwordCryptographyService;
         _userCommandPermissionsHelper = userCommandPermissionsHelper;
         _userAreaRepository = userAreaRepository;
@@ -59,7 +63,7 @@ public class AddUserCommandHandler
             AccountVerifiedDate = command.IsAccountVerified ? executionContext.ExecutionDate : (DateTime?)null,
             CreateDate = executionContext.ExecutionDate,
             Role = role,
-            UserArea = dbUserArea,
+            UserAreaCode = dbUserArea.UserAreaCode, 
             CreatorId = executionContext.UserContext.UserId,
             SecurityStamp = _securityStampGenerator.Generate()
         };
@@ -105,7 +109,7 @@ public class AddUserCommandHandler
 
     private async Task<UserArea> GetUserAreaAsync(IUserAreaDefinition userArea)
     {
-        var dbUserArea = await _dbContext
+        var dbUserArea = await _userAreaContext
             .UserAreas
             .Where(a => a.UserAreaCode == userArea.UserAreaCode)
             .SingleOrDefaultAsync();
@@ -115,7 +119,7 @@ public class AddUserCommandHandler
             dbUserArea = new UserArea();
             dbUserArea.UserAreaCode = userArea.UserAreaCode;
             dbUserArea.Name = userArea.Name;
-            _dbContext.UserAreas.Add(dbUserArea);
+            _userAreaContext.UserAreas.Add(dbUserArea);
         }
 
         return dbUserArea;

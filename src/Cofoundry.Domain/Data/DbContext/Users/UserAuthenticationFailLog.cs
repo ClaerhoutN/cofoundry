@@ -17,12 +17,6 @@ public class UserAuthenticationFailLog
     public string UserAreaCode { get; set; }
 
     /// <summary>
-    /// The <see cref="Data.UserArea"/> that the client was attempting to
-    /// authenticated against.
-    /// </summary>
-    public virtual UserArea UserArea { get; set; }
-
-    /// <summary>
     /// The username parameter of the authentication request. This is the
     /// normalized and uniquified version of the username.
     /// </summary>

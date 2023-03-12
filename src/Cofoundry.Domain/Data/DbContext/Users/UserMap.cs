@@ -61,9 +61,5 @@ public class UserMap : IEntityTypeConfiguration<User>
         builder.HasOne(s => s.Creator)
             .WithMany()
             .HasForeignKey(d => d.CreatorId);
-
-        builder.HasOne(s => s.UserArea)
-            .WithMany(d => d.Users)
-            .HasForeignKey(d => d.UserAreaCode);
     }
 }

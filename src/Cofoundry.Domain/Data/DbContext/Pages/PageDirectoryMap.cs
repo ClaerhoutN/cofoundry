@@ -20,10 +20,6 @@ public class PageDirectoryMap : IEntityTypeConfiguration<PageDirectory>
             .WithMany(d => d.ChildPageDirectories)
             .HasForeignKey(s => s.ParentPageDirectoryId);
 
-        builder.HasOne(s => s.UserAreaForSignInRedirect)
-            .WithMany()
-            .HasForeignKey(s => s.UserAreaCodeForSignInRedirect);
-
         builder.HasOne(s => s.PageDirectoryPath)
             .WithOne(d => d.PageDirectory)
             .HasForeignKey<PageDirectoryPath>(s => s.PageDirectoryId);
