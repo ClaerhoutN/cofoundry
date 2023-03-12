@@ -21,10 +21,6 @@ public class PageMap : IEntityTypeConfiguration<Page>
             .HasMaxLength(1)
             .IsUnicode(false);
 
-        builder.HasOne(s => s.Locale)
-            .WithMany()
-            .HasForeignKey(d => d.LocaleId);
-
         builder.HasOne(s => s.CustomEntityDefinition)
             .WithMany()
             .HasForeignKey(d => d.CustomEntityDefinitionCode);

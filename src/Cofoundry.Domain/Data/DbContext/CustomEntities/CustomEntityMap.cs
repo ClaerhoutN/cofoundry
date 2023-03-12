@@ -25,10 +25,6 @@ public class CustomEntityMap : IEntityTypeConfiguration<CustomEntity>
             .WithMany()
             .HasForeignKey(d => d.CustomEntityDefinitionCode);
 
-        builder.HasOne(s => s.Locale)
-            .WithMany()
-            .HasForeignKey(d => d.LocaleId);
-
         builder.Property(s => s.PublishDate).IsUtc();
         builder.Property(s => s.LastPublishDate).IsUtc();
 

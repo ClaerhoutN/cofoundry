@@ -86,17 +86,6 @@ public static class DbModelBuilderExtensions
     }
 
     /// <summary>
-    /// Maps Cofoundry locales classes to the DbModelBuilder
-    /// </summary>
-    /// <returns>DbModelBuilder for method chaining</returns>
-    public static ModelBuilder MapCofoundryLocales(this ModelBuilder modelBuilder)
-    {
-        modelBuilder.ApplyConfiguration(new LocaleMap());
-
-        return modelBuilder;
-    }
-
-    /// <summary>
     /// Maps Cofoundry page, custom entities, images and all dependency classes 
     /// to the DbModelBuilder.
     /// </summary>
@@ -104,7 +93,6 @@ public static class DbModelBuilderExtensions
     public static ModelBuilder MapCofoundryContent(this ModelBuilder modelBuilder)
     {
         modelBuilder
-            .MapCofoundryLocales()
             .MapCofoundryUsers()
             .MapCofoundryTags()
             .MapCofoundryImageAssets()

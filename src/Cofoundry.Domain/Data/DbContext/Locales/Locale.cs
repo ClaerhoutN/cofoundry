@@ -7,6 +7,4 @@ public class Locale
     public string IETFLanguageTag { get; set; }
     public string LocaleName { get; set; }
     public bool IsActive { get; set; }
-    public virtual ICollection<Locale> ChildLocales { get; set; } = new List<Locale>();
-    public virtual Locale ParentLocale { get; set; }
 }

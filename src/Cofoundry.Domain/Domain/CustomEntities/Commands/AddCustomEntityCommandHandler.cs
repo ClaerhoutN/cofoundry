@@ -1,5 +1,6 @@
 ﻿using Cofoundry.Core.Data;
 using Cofoundry.Domain.Data;
+using Cofoundry.Domain.Data.Cosmos;
 using Cofoundry.Domain.Data.Internal;
 
 namespace Cofoundry.Domain.Internal;
@@ -14,6 +15,7 @@ public class AddCustomEntityCommandHandler
     private readonly IQueryExecutor _queryExecutor;
     private readonly ICommandExecutor _commandExecutor;
     private readonly CofoundryDbContext _dbContext;
+    private readonly LocaleContext _localeContext;
     private readonly EntityAuditHelper _entityAuditHelper;
     private readonly ICustomEntityCache _customEntityCache;
     private readonly IDbUnstructuredDataSerializer _dbUnstructuredDataSerializer;
@@ -26,6 +28,7 @@ public class AddCustomEntityCommandHandler
         IQueryExecutor queryExecutor,
         ICommandExecutor commandExecutor,
         CofoundryDbContext dbContext,
+        LocaleContext localeContext, 
         EntityAuditHelper entityAuditHelper,
         ICustomEntityCache customEntityCache,
         IDbUnstructuredDataSerializer dbUnstructuredDataSerializer,
@@ -38,6 +41,7 @@ public class AddCustomEntityCommandHandler
         _queryExecutor = queryExecutor;
         _commandExecutor = commandExecutor;
         _dbContext = dbContext;
+        _localeContext = localeContext;
         _entityAuditHelper = entityAuditHelper;
         _customEntityCache = customEntityCache;
         _dbUnstructuredDataSerializer = dbUnstructuredDataSerializer;
@@ -122,7 +126,7 @@ public class AddCustomEntityCommandHandler
     {
         if (!localeId.HasValue) return null;
 
-        var locale = _dbContext
+        var locale = _localeContext
             .Locales
             .SingleOrDefault(l => l.LocaleId == localeId);
 
@@ -165,7 +169,7 @@ public class AddCustomEntityCommandHandler
         var entity = new CustomEntity();
         _entityAuditHelper.SetCreated(entity, executionContext);
 
-        entity.Locale = GetLocale(command.LocaleId);
+        entity.LocaleId = command.LocaleId;
         entity.UrlSlug = command.UrlSlug;
         entity.CustomEntityDefinitionCode = definition.CustomEntityDefinitionCode;
 

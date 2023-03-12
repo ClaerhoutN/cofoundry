@@ -211,7 +211,7 @@ public class GetCustomEntityDetailsByIdQueryHandler
             .ThenInclude(e => e.Creator)
             .Include(v => v.Creator)
             .AsNoTracking()
-            .Where(v => v.CustomEntityId == id && (v.CustomEntity.LocaleId == null || v.CustomEntity.Locale.IsActive))
+            .Where(v => v.CustomEntityId == id && (v.CustomEntity.LocaleId == null || v.CustomEntity.LocaleId == 53))
             .OrderByLatest()
             .FirstOrDefaultAsync();
     }

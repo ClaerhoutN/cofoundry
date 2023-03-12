@@ -34,7 +34,6 @@ public class UpdatePageUrlCommandHandler
 
         var page = await _dbContext
             .Pages
-            .Include(p => p.Locale)
             .Include(p => p.PageDirectory)
             .FilterActive()
             .FilterById(command.PageId)

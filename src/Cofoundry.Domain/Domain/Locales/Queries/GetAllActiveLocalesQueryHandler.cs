@@ -1,4 +1,5 @@
 ﻿using Cofoundry.Domain.Data;
+using Cofoundry.Domain.Data.Cosmos;
 
 namespace Cofoundry.Domain.Internal;
 
@@ -6,17 +7,17 @@ public class GetAllActiveLocalesQueryHandler
     : IQueryHandler<GetAllActiveLocalesQuery, ICollection<ActiveLocale>>
     , IIgnorePermissionCheckHandler
 {
-    private readonly CofoundryDbContext _dbContext;
+    private readonly LocaleContext _localeContext;
     private readonly ILocaleCache _cache;
     private readonly IActiveLocaleMapper _activeLocaleMapper;
 
     public GetAllActiveLocalesQueryHandler(
-        CofoundryDbContext dbContext,
+        LocaleContext localeContext,
         ILocaleCache cache,
         IActiveLocaleMapper activeLocaleMapper
         )
     {
-        _dbContext = dbContext;
+        _localeContext = localeContext;
         _cache = cache;
         _activeLocaleMapper = activeLocaleMapper;
     }
@@ -38,7 +39,7 @@ public class GetAllActiveLocalesQueryHandler
 
     private IQueryable<Locale> GetAllLocales()
     {
-        return _dbContext
+        return _localeContext
                 .Locales
                 .AsNoTracking()
                 .Where(l => l.IsActive)

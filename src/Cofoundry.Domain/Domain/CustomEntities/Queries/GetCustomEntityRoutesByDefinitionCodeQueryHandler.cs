@@ -48,9 +48,8 @@ public class GetCustomEntityRoutesByDefinitionCodeQueryHandler
             var dbRoutes = await _dbContext
                 .CustomEntities
                 .Include(c => c.CustomEntityVersions)
-                .Include(c => c.Locale)
                 .AsNoTracking()
-                .Where(e => e.CustomEntityDefinitionCode == query.CustomEntityDefinitionCode && (e.LocaleId == null || e.Locale.IsActive))
+                .Where(e => e.CustomEntityDefinitionCode == query.CustomEntityDefinitionCode && (e.LocaleId == null || e.LocaleId == 53))
                 .ToListAsync();
 
             var allLocales = await _queryExecutor.ExecuteAsync(new GetAllActiveLocalesQuery(), executionContext);

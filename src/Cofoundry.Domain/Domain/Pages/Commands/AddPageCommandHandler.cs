@@ -1,5 +1,6 @@
 ﻿using Cofoundry.Core.Data;
 using Cofoundry.Domain.Data;
+using Cofoundry.Domain.Data.Cosmos;
 using Cofoundry.Domain.Data.Internal;
 
 namespace Cofoundry.Domain.Internal;
@@ -9,6 +10,7 @@ public class AddPageCommandHandler
     , IPermissionRestrictedCommandHandler<AddPageCommand>
 {
     private readonly CofoundryDbContext _dbContext;
+    private readonly LocaleContext _localeContext;
     private readonly IQueryExecutor _queryExecutor;
     private readonly EntityAuditHelper _entityAuditHelper;
     private readonly EntityTagHelper _entityTagHelper;
@@ -19,6 +21,7 @@ public class AddPageCommandHandler
 
     public AddPageCommandHandler(
         CofoundryDbContext dbContext,
+        LocaleContext localeContext, 
         IQueryExecutor queryExecutor,
         EntityAuditHelper entityAuditHelper,
         EntityTagHelper entityTagHelper,
@@ -29,6 +32,7 @@ public class AddPageCommandHandler
         )
     {
         _dbContext = dbContext;
+        _localeContext = localeContext;
         _queryExecutor = queryExecutor;
         _entityAuditHelper = entityAuditHelper;
         _entityTagHelper = entityTagHelper;
@@ -84,7 +88,7 @@ public class AddPageCommandHandler
     {
         if (!localeId.HasValue) return null;
 
-        var locale = _dbContext
+        var locale = _localeContext
             .Locales
             .SingleOrDefault(l => l.LocaleId == localeId);
 
@@ -120,7 +124,7 @@ public class AddPageCommandHandler
         // Create Page
         var page = new Page();
         page.PageTypeId = (int)command.PageType;
-        page.Locale = GetLocale(command.LocaleId);
+        page.LocaleId = command.LocaleId;
         page.PageDirectory = await GetPageDirectoryAsync(command.PageDirectoryId);
 
         _entityAuditHelper.SetCreated(page, executionContext);

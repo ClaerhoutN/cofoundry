@@ -67,21 +67,6 @@ create table Cofoundry.ModuleUpdateError (
 
 create index IX_ModuleUpdateError_Date on Cofoundry.ModuleUpdateError (ExecutionDate desc)
 
-
-/****** Cofoundry.Locale ******/
-
-create table Cofoundry.Locale (
-	LocaleId int identity(1,1) not null,
-	ParentLocaleId int null,
-	IETFLanguageTag nvarchar(16) not null,
-	LocaleName nvarchar(64) not null,
-	IsActive bit not null constraint DF_Locale_IsActive  default (0),
-
-	constraint PK_Locale primary key (LocaleId),
-	constraint FK_Locale_ParentLocale foreign key (ParentLocaleId) references Cofoundry.Locale (LocaleId)
-)
-
-
 /****** Cofoundry.[Role] ******/
 
 create table Cofoundry.[Role] (
@@ -201,7 +186,6 @@ create table Cofoundry.WebDirectoryLocale (
 
 	constraint PK_WebDirectoryLocale primary key (WebDirectoryLocaleId),
 	constraint FK_WebDirectoryLocale_CreatorUser foreign key (CreatorId) references Cofoundry.[User] (UserId),
-	constraint FK_WebDirectoryLocale_Locale foreign key (LocaleId) references Cofoundry.Locale (LocaleId),
 	constraint FK_WebDirectoryLocale_WebDirectory foreign key (WebDirectoryId) references Cofoundry.WebDirectory (WebDirectoryId)
 )
 
@@ -420,7 +404,6 @@ create table Cofoundry.[Page] (
 	constraint PK_Page primary key (PageId),
 	constraint FK_Page_CreatorUser foreign key (CreatorId) references Cofoundry.[User] (UserId),
 	constraint FK_Page_CustomEntityDefinition foreign key (CustomEntityDefinitionCode) references Cofoundry.CustomEntityDefinition (CustomEntityDefinitionCode),
-	constraint FK_Page_Locale foreign key (LocaleId) references Cofoundry.Locale (LocaleId),
 	constraint FK_Page_PageType foreign key (PageTypeId) references Cofoundry.PageType (PageTypeId),
 	constraint FK_Page_WebDirectory foreign key (WebDirectoryId) references Cofoundry.WebDirectory (WebDirectoryId),
 	constraint CK_Page_CustomEntityDefinition check (PageTypeId <> 2 or CustomEntityDefinitionCode is not null)
@@ -640,8 +623,7 @@ create table Cofoundry.CustomEntity (
 	Ordering int null,
 
 	constraint PK_CustomEntity primary key (CustomEntityId),
-	constraint FK_CustomEntity_CustomEntityDefinition foreign key (CustomEntityDefinitionCode) references Cofoundry.CustomEntityDefinition (CustomEntityDefinitionCode),
-	constraint FK_CustomEntity_Locale foreign key (LocaleId) references Cofoundry.Locale (LocaleId)
+	constraint FK_CustomEntity_CustomEntityDefinition foreign key (CustomEntityDefinitionCode) references Cofoundry.CustomEntityDefinition (CustomEntityDefinitionCode)
 )
 
 

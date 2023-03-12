@@ -31,11 +31,6 @@ public class Page : IEntityAccessRestrictable<PageAccessRule>, ICreateAuditable,
     public int? LocaleId { get; set; }
 
     /// <summary>
-    /// Optional <see cref="Locale"/> of the page if used in a localized site.
-    /// </summary>
-    public virtual Locale Locale { get; set; }
-
-    /// <summary>
     /// The path of the page within the directory. This must be
     /// unique within the directory the page is parented to.
     /// </summary>

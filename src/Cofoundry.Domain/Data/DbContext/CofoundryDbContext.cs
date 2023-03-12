@@ -189,8 +189,6 @@ public partial class CofoundryDbContext : DbContext
     /// </summary>
     public DbSet<PageTemplateRegion> PageTemplateRegions { get; set; }
 
-    public DbSet<Locale> Locales { get; set; }
-
     /// <summary>
     /// Pages represent the dynamically navigable pages of your website. Each page uses a template 
     /// which defines the regions of content that users can edit. Pages are a versioned entity and 

@@ -48,12 +48,6 @@ public class CustomEntity : ICreateAuditable, IEntityPublishable
     public int? LocaleId { get; set; }
 
     /// <summary>
-    /// Optional locale assigned to the custom entity
-    /// if used in a localized site.
-    /// </summary>
-    public virtual Locale Locale { get; set; }
-
-    /// <summary>
     /// Optional ordering value applied to the custom entity 
     /// in relation to other custom entities with the same definition.
     /// </summary>

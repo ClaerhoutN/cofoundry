@@ -13,10 +13,6 @@ public class PageDirectoryLocaleMap : IEntityTypeConfiguration<PageDirectoryLoca
             .IsRequired()
             .HasMaxLength(64);
 
-        builder.HasOne(s => s.Locale)
-            .WithMany()
-            .HasForeignKey(d => d.LocaleId);
-
         builder.HasOne(s => s.PageDirectory)
             .WithMany(s => s.PageDirectoryLocales)
             .HasForeignKey(d => d.PageDirectoryId);
