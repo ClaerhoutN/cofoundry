@@ -19,7 +19,7 @@ public class CofoundryDbConnectionManager
     , IDisposable
 {
     private readonly DatabaseSettings _databaseSettings;
-    private DbConnection _dbConntection;
+    private DbConnection _dbConnection;
 
     public CofoundryDbConnectionManager(
         DatabaseSettings databaseSettings
@@ -46,21 +46,21 @@ public class CofoundryDbConnectionManager
     /// </summary>
     public DbConnection GetShared()
     {
-        if (_dbConntection != null)
+        if (_dbConnection != null)
         {
-            return _dbConntection;
+            return _dbConnection;
         }
 
-        _dbConntection = Create();
+        _dbConnection = Create();
 
-        return _dbConntection;
+        return _dbConnection;
     }
 
     public void Dispose()
     {
-        if (_dbConntection != null)
+        if (_dbConnection != null)
         {
-            _dbConntection.Dispose();
+            _dbConnection.Dispose();
         }
     }
 }
