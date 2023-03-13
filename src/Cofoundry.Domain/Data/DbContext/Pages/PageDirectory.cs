@@ -74,7 +74,8 @@ public class PageDirectory : IEntityAccessRestrictable<PageDirectoryAccessRule>,
     /// but instead are used to restrict public access to website pages and routes.
     /// </para>
     /// </summary>
-    public virtual ICollection<PageDirectoryAccessRule> AccessRules { get; set; } = new List<PageDirectoryAccessRule>();
+    [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+    public virtual ICollection<PageDirectoryAccessRule> AccessRules { get; set; } = new List<PageDirectoryAccessRule>();//TODO
 
     /// <summary>
     /// Records from the <see cref="PageDirectoryClosure"/> table where this directory is the descendant

@@ -14,18 +14,21 @@ public class GetPageAccessRuleSetDetailsByPageIdQueryHandler
     , IPermissionRestrictedQueryHandler<GetPageAccessRuleSetDetailsByPageIdQuery, PageAccessRuleSetDetails>
 {
     private readonly CofoundryDbContext _dbContext;
+    private readonly PageDirectoryAccessRuleContext _pageDirectoryAccessRuleContext;
     private readonly PageDirectoryPathContext _pageDirectoryPathContext;
     private readonly IEntityAccessRuleSetDetailsMapper _entityAccessDetailsMapper;
     private readonly IPageDirectoryMicroSummaryMapper _pageDirectoryMicroSummaryMapper;
 
     public GetPageAccessRuleSetDetailsByPageIdQueryHandler(
         CofoundryDbContext dbContext,
+        PageDirectoryAccessRuleContext pageDirectoryAccessRuleContext, 
         PageDirectoryPathContext pageDirectoryPathContext, 
         IEntityAccessRuleSetDetailsMapper entityAccessDetailsMapper,
         IPageDirectoryMicroSummaryMapper pageDirectoryMicroSummaryMapper
         )
     {
         _dbContext = dbContext;
+        _pageDirectoryAccessRuleContext = pageDirectoryAccessRuleContext;
         _pageDirectoryPathContext = pageDirectoryPathContext;
         _entityAccessDetailsMapper = entityAccessDetailsMapper;
         _pageDirectoryMicroSummaryMapper = pageDirectoryMicroSummaryMapper;
@@ -62,8 +65,6 @@ public class GetPageAccessRuleSetDetailsByPageIdQueryHandler
             .PageDirectoryClosures
             .AsNoTracking()
             .Include(d => d.AncestorPageDirectory)
-            .ThenInclude(d => d.AccessRules)
-            .Include(d => d.AncestorPageDirectory)
             .FilterByDescendantId(dbPage.PageDirectoryId)
             .Where(d => d.DescendantPageDirectoryId == dbPage.PageDirectoryId && d.AncestorPageDirectory.AccessRules.Any())
             .OrderByDescending(d => d.Distance)
@@ -73,8 +74,10 @@ public class GetPageAccessRuleSetDetailsByPageIdQueryHandler
 
         foreach (var dbInheritedRule in dbInheritedRules)
         {
-            if (dbInheritedRule.AncestorPageDirectory != null)
+            if (dbInheritedRule.AncestorPageDirectory != null) {
+                await SetPageDirectoryAccessRules(dbInheritedRule.AncestorPageDirectory);
                 dbInheritedRule.AncestorPageDirectory.PageDirectoryPath = await _pageDirectoryPathContext.PageDirectoryPaths.AsNoTracking().FirstOrDefaultAsync(x => x.PageDirectoryId == dbInheritedRule.AncestorPageDirectory.PageDirectoryId);
+            }
             var inheritedDirectory = new InheritedPageDirectoryAccessDetails();
             inheritedDirectory.PageDirectory = _pageDirectoryMicroSummaryMapper.Map(dbInheritedRule.AncestorPageDirectory);
             await _entityAccessDetailsMapper.MapAsync(dbInheritedRule.AncestorPageDirectory, inheritedDirectory, executionContext, (dbRule, rule) =>
@@ -90,5 +93,12 @@ public class GetPageAccessRuleSetDetailsByPageIdQueryHandler
     public IEnumerable<IPermissionApplication> GetPermissions(GetPageAccessRuleSetDetailsByPageIdQuery query)
     {
         yield return new PageReadPermission();
+    }
+
+    private Task SetPageDirectoryAccessRules(PageDirectory pageDirectory) => SetPageDirectoryAccessRules(new[] { pageDirectory });
+    private async Task SetPageDirectoryAccessRules(IEnumerable<PageDirectory> pageDirectories) {
+        foreach (var pageDirectory in pageDirectories) {
+            pageDirectory.AccessRules = await _pageDirectoryAccessRuleContext.PageDirectoryAccessRules.Where(x => x.PageDirectoryId == pageDirectory.PageDirectoryId).ToListAsync();
+        }
     }
 }

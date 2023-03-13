@@ -43,12 +43,6 @@ public class Role
     public virtual ICollection<PageAccessRule> PageAccessRules { get; set; } = new List<PageAccessRule>();
 
     /// <summary>
-    /// Dynamic website routes can optionally be restircted to specific roles. This
-    /// collection references zero or more access rules at the <see cref="PageDirectory"/> level.
-    /// </summary>
-    public virtual ICollection<PageDirectoryAccessRule> PageDirectoryAccessRules { get; set; } = new List<PageDirectoryAccessRule>();
-
-    /// <summary>
     /// <see langword="true"/> if this role is the special <see cref="AnonymousRole"/>.
     /// </summary>
     public bool IsAnonymousRole()

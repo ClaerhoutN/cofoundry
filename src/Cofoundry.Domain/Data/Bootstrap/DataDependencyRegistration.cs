@@ -14,6 +14,7 @@ public class DataDependencyRegistration : IDependencyRegistration
             .Register<LocaleContext>(new Type[] { typeof(LocaleContext) }, RegistrationOptions.Scoped())
             .Register<PageDirectoryLocaleContext>(new Type[] { typeof(PageDirectoryLocaleContext) }, RegistrationOptions.Scoped())
             .Register<PageDirectoryPathContext>(new Type[] { typeof(PageDirectoryPathContext) }, RegistrationOptions.Scoped())
+            .Register<PageDirectoryAccessRuleContext>(new Type[] { typeof(PageDirectoryAccessRuleContext) }, RegistrationOptions.Scoped())
             .Register<IFileStoreService, FileSystemFileStoreService>()
             .Register<IDbUnstructuredDataSerializer, DbUnstructuredDataSerializer>()
             .Register<ICustomEntityStoredProcedures, CustomEntityStoredProcedures>()

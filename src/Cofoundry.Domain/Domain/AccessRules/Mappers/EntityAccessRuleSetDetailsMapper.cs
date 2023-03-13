@@ -3,6 +3,8 @@ using Microsoft.Extensions.Logging;
 
 namespace Cofoundry.Domain.Internal;
 
+//todo: check references of .AccessRules, save to CosmosDB
+
 /// <inheritdoc/>
 public class EntityAccessRuleSetDetailsMapper : IEntityAccessRuleSetDetailsMapper
 {

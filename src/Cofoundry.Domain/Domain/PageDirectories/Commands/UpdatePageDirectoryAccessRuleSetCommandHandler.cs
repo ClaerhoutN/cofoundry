@@ -1,4 +1,6 @@
 ﻿using Cofoundry.Domain.Data;
+using Cofoundry.Domain.Data.Cosmos;
+using System.IO;
 
 namespace Cofoundry.Domain.Internal;
 
@@ -10,6 +12,7 @@ public class UpdatePageDirectoryAccessRuleSetCommandHandler
     , IPermissionRestrictedCommandHandler<UpdatePageDirectoryAccessRuleSetCommand>
 {
     private readonly CofoundryDbContext _dbContext;
+    private readonly PageDirectoryAccessRuleContext _pageDirectoryAccessRuleContext;
     private readonly IDomainRepository _domainRepository;
     private readonly IUpdateAccessRuleSetCommandHelper _updateAccessRulesCommandHelper;
     private readonly IPageDirectoryCache _pageDirectoryCache;
@@ -17,6 +20,7 @@ public class UpdatePageDirectoryAccessRuleSetCommandHandler
 
     public UpdatePageDirectoryAccessRuleSetCommandHandler(
         CofoundryDbContext dbContext,
+        PageDirectoryAccessRuleContext pageDirectoryAccessRuleContext,
         IDomainRepository domainRepository,
         IUpdateAccessRuleSetCommandHelper updateAccessRulesCommandHelper,
         IPageDirectoryCache pageDirectoryCache,
@@ -24,6 +28,7 @@ public class UpdatePageDirectoryAccessRuleSetCommandHandler
         )
     {
         _dbContext = dbContext;
+        _pageDirectoryAccessRuleContext = pageDirectoryAccessRuleContext;
         _domainRepository = domainRepository;
         _updateAccessRulesCommandHelper = updateAccessRulesCommandHelper;
         _pageDirectoryCache = pageDirectoryCache;
@@ -43,11 +48,12 @@ public class UpdatePageDirectoryAccessRuleSetCommandHandler
     {
         var directory = await _dbContext
             .PageDirectories
-            .Include(p => p.AccessRules)
             .FilterById(command.PageDirectoryId)
             .SingleOrDefaultAsync();
 
         EntityNotFoundException.ThrowIfNull(directory, command.PageDirectoryId);
+
+        await SetPageDirectoryAccessRules(directory);
 
         return directory;
     }
@@ -65,5 +71,12 @@ public class UpdatePageDirectoryAccessRuleSetCommandHandler
     public IEnumerable<IPermissionApplication> GetPermissions(UpdatePageDirectoryAccessRuleSetCommand command)
     {
         yield return new PageDirectoryAccessRuleManagePermission();
+    }
+
+    private Task SetPageDirectoryAccessRules(PageDirectory pageDirectory) => SetPageDirectoryAccessRules(new[] { pageDirectory });
+    private async Task SetPageDirectoryAccessRules(IEnumerable<PageDirectory> pageDirectories) {
+        foreach (var pageDirectory in pageDirectories) {
+            pageDirectory.AccessRules = await _pageDirectoryAccessRuleContext.PageDirectoryAccessRules.Where(x => x.PageDirectoryId == pageDirectory.PageDirectoryId).ToListAsync();
+        }
     }
 }

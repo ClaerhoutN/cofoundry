@@ -27,17 +27,9 @@ public class PageDirectoryAccessRule : IEntityAccessRule
     /// </summary>
     public int PageDirectoryId { get; set; }
 
-    /// <summary>
-    /// <see cref="PageDirectory"/> that this rule controls access to,
-    /// as well as any child directories or pages.
-    /// </summary>
-    public virtual PageDirectory PageDirectory { get; set; }
-
     public string UserAreaCode { get; set; }
 
     public int? RoleId { get; set; }
-
-    public virtual Role Role { get; set; }
 
     public DateTime CreateDate { get; set; }
 

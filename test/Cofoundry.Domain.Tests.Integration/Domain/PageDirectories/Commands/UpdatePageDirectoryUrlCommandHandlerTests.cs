@@ -1,5 +1,6 @@
 ﻿using Cofoundry.Core.Validation;
 using Cofoundry.Domain.Data;
+using Cofoundry.Domain.Data.Cosmos;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
@@ -192,6 +193,7 @@ public class UpdatePageDirectoryUrlCommandHandlerTests
         using var app = _appFactory.Create();
         var contentRepository = app.Services.GetContentRepositoryWithElevatedPermissions();
         var dbContext = app.Services.GetRequiredService<CofoundryDbContext>();
+        var pageDirectoryPathContext = app.Services.GetRequiredService<PageDirectoryPathContext>();
 
         var dir1Id = await app.TestData.PageDirectories().AddAsync(uniqueData);
         var dir2Id = await app.TestData.PageDirectories().AddAsync("delta", dir1Id);
@@ -207,13 +209,13 @@ public class UpdatePageDirectoryUrlCommandHandlerTests
                 ParentPageDirectoryId = dir2Id
             });
 
-        var directory3Path = await dbContext
+        var directory3Path = await pageDirectoryPathContext
             .PageDirectoryPaths
             .AsNoTracking()
             .Where(d => d.PageDirectoryId == dir3Id)
             .SingleOrDefaultAsync();
 
-        var directory4Path = await dbContext
+        var directory4Path = await pageDirectoryPathContext
             .PageDirectoryPaths
             .AsNoTracking()
             .Where(d => d.PageDirectoryId == dir4Id)

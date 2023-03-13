@@ -2,6 +2,8 @@
 
 namespace Cofoundry.Domain.Internal;
 
+//todo: check references of .AccessRules, save to CosmosDB
+
 /// <inheritdoc/>
 public class UpdateAccessRuleSetCommandHelper : IUpdateAccessRuleSetCommandHelper
 {
@@ -120,11 +122,11 @@ public class UpdateAccessRuleSetCommandHelper : IUpdateAccessRuleSetCommandHelpe
                 var role = roles.GetOrDefault(updateRuleCommand.RoleId.Value);
                 EntityNotFoundException.ThrowIfNull(role, updateRuleCommand.RoleId);
                 ValidateRoleIsInUserArea(userAreaDefinition, role);
-                dbRule.Role = role;
+                dbRule.RoleId = role.RoleId;
             }
             else
             {
-                dbRule.Role = null;
+                dbRule.RoleId = null;
             }
         }
     }
@@ -151,7 +153,7 @@ public class UpdateAccessRuleSetCommandHelper : IUpdateAccessRuleSetCommandHelpe
                 var role = roles.GetOrDefault(addRuleCommand.RoleId.Value);
                 EntityNotFoundException.ThrowIfNull(role, addRuleCommand.RoleId);
                 ValidateRoleIsInUserArea(userAreaDefinition, role);
-                dbRule.Role = role;
+                dbRule.RoleId = role.RoleId;
             }
 
             _entityAuditHelper.SetCreated(dbRule, executionContext);
