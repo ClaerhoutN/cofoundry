@@ -1,6 +1,7 @@
 ![Cofoundry](https://www.cofoundry.org/content/images/external/logo_for_github_readme.png)
 
 [![.github/workflows/build-and-test.yml](https://github.com/ClaerhoutN/cofoundry/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/ClaerhoutN/cofoundry/actions/workflows/build-and-test.yml)
+[![.github/workflows/build.yml](https://github.com/ClaerhoutN/cofoundry/actions/workflows/build.yml/badge.svg)](https://github.com/ClaerhoutN/cofoundry/actions/workflows/build.yml)
 
 Cofoundry is an open source .NET Core CMS and application framework focusing on:
 
