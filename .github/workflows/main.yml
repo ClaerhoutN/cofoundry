@@ -15,11 +15,15 @@ jobs:
       - name: Setup .NET Core @ Latest
         uses: actions/setup-dotnet@v3.0.3
         with:
-          dotnet-version: '6.x'     
+          dotnet-version: '6.x'
+      
+      - name: Generate package version
+        id: version
+        run: echo "date=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
           
       - name: Build solution and generate NuGet package
         run: |
-          dotnet pack -c Release -o out  
+          dotnet pack -c Release -o out --version-suffix "0.${{steps.version.outputs.date}}"
 
       - name: Push generated package to GitHub registry
         run: |          
