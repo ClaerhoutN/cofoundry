@@ -6,6 +6,7 @@
 	  
     <MvcRazorExcludeViewFilesFromPublish>false</MvcRazorExcludeViewFilesFromPublish>
     <MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>
+    <UserSecretsId>ca60037a-cfb1-4817-b0fd-94ac2f06bc3b</UserSecretsId>
   </PropertyGroup>
   
   <ItemGroup>
