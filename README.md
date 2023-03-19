@@ -1,3 +1,3 @@
-![Cofoundry](https://www.cofoundry.org/content/images/external/logo_for_github_readme.png)
+![Cofoundry](https://www.cofoundry.org)
 
 [![.github/workflows/build-and-test.yml](https://github.com/ClaerhoutN/cofoundry/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/ClaerhoutN/cofoundry/actions/workflows/build-and-test.yml)
