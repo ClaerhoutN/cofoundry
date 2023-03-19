@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace Cofoundry.Domain.Tests.Integration;
 
@@ -88,6 +89,7 @@ public static class DbDependentTestApplicationServiceProviderFactory
     {
         return new ConfigurationBuilder()
             .AddJsonFile("appsettings.json", optional: true)
+            .AddUserSecrets(Assembly.GetExecutingAssembly())
             .AddEnvironmentVariables()
             .Build();
     }
