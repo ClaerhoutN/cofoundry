@@ -50,4 +50,10 @@
     <ProjectReference Include="..\..\src\Cofoundry.Web.Admin\Cofoundry.Web.Admin.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="xunit.runner.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

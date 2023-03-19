@@ -24,4 +24,10 @@
     <ProjectReference Include="..\Cofoundry.Domain.Tests\Cofoundry.Domain.Tests.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="xunit.runner.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
