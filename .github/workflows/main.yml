@@ -19,11 +19,11 @@ jobs:
       
       - name: Generate package version
         id: version
-        run: echo "date=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
+        run: echo "date=$(date +'0.%y.%m.%d')" >> $GITHUB_OUTPUT
           
       - name: Build solution and generate NuGet package
         run: |
-          dotnet pack -c Release -o out --version-suffix "0.${{steps.version.outputs.date}}"
+          dotnet pack -c Release -o out -p:PackageVersion=${{steps.version.outputs.date}}
 
       - name: Push generated package to GitHub registry
         run: |          
