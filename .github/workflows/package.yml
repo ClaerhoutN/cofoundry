@@ -23,7 +23,7 @@ jobs:
           
       - name: Build solution and generate NuGet package
         run: |
-          dotnet pack -c Release -o out -p:PackageVersion=${{steps.version.outputs.date}}
+          dotnet pack -c Debug -o out -p:PackageVersion=${{steps.version.outputs.date}}
 
       - name: Push generated package to GitHub registry
         run: |          
