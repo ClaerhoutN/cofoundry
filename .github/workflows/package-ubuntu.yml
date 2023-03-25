@@ -22,8 +22,7 @@ jobs:
         run: echo "date=$(date +'0.%y.%m.%d')" >> $GITHUB_OUTPUT
           
       - name: Build solution and generate NuGet package
-        run: |
-          dotnet pack -c Debug -o out --include-source -p:PackageVersion=${{steps.version.outputs.date}}
+        run: dotnet pack -c Debug -o out --include-source -p:PackageVersion=${{steps.version.outputs.date}}
+        
       - name: Push generated package to GitHub registry
-        run: |          
-          dotnet nuget push ./out/*.nupkg --skip-duplicate --api-key ${{secrets.PACKAGE_TOKEN}} --source "https://nuget.pkg.github.com/${{vars.NAMESPACE}}/index.json"
+        run: dotnet nuget push ./out/*.nupkg --skip-duplicate --api-key ${{secrets.PACKAGE_TOKEN}} --source "https://nuget.pkg.github.com/${{vars.NAMESPACE}}/index.json"
