@@ -3,7 +3,7 @@ on:
 
 jobs:
   build-and-push:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
@@ -23,9 +23,7 @@ jobs:
           
       - name: Build solution and generate NuGet package
         run: |
-          dotnet pack -c Debug -o out --include-source -p:PackageVersion=0.23.3.25
-
+          dotnet pack -c Debug -o out --include-source -p:PackageVersion=${{steps.version.outputs.date}}
       - name: Push generated package to GitHub registry
         run: |          
           dotnet nuget push ./out/*.nupkg --skip-duplicate --api-key ${{secrets.PACKAGE_TOKEN}} --source "https://nuget.pkg.github.com/${{vars.NAMESPACE}}/index.json"
-      
