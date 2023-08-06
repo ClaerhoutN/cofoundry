@@ -14,6 +14,28 @@ public static class HtmlFormatter
                .Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None)
                .Aggregate((a, b) => a + "<br/>" + b);
     }
+    private static readonly Regex _spaceRegex = new Regex("  +");
+    /// <summary>
+    /// Converts spaces from a textarea to html &nbsp;
+    /// </summary>
+    public static string ConvertSpacesToNbsp(string stIn)
+    {
+        var matches = _spaceRegex.Matches(stIn);
+        string result = string.Empty;
+        int index = 0;
+        foreach(Match match in matches)
+        {
+            result += stIn.Substring(index, match.Index - index);
+            for(int i = 0; i < match.Length; i++)
+            {
+                result += "&nbsp;";
+            }
+            index = match.Index + match.Length;
+        }
+        if (index < stIn.Length)
+            result += stIn.Substring(index);
+        return result;
+    }
 
     /// <summary>
     /// Converts urls in a string in to links.

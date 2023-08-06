@@ -15,14 +15,15 @@ public abstract class CodeSnippetHtmlEncoderBase : ICodeSnippetHtmlEncoder
         StringBuilder sb = new StringBuilder();
         foreach(var token in GetTokens(s))
         {
-            sb.Append(WrapWithTags(
-                HtmlFormatter.ConvertLineBreaksToBrTags(
-                    HttpUtility.HtmlEncode(token.Value)), token.Kind));
+            string encoded = HttpUtility.HtmlEncode(token.Value);
+            encoded = HtmlFormatter.ConvertLineBreaksToBrTags(encoded);
+            encoded = HtmlFormatter.ConvertSpacesToNbsp(encoded);
+            sb.Append(WrapWithTags(encoded, token.CssClass));
         }
 
         return new HtmlString(sb.ToString());
     }
-    protected abstract string WrapWithTags(string s, string tokenKind);
+    private string WrapWithTags(string s, string cssClass) => $"<span class=\"{cssClass}\">{s}</span>";
     protected abstract IEnumerable<ICodeSnippetToken> GetTokens(string code);
     public abstract string Language { get; }
 }

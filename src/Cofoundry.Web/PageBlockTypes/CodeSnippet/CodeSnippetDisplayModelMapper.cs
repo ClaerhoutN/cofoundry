@@ -25,7 +25,8 @@ public class CodeSnippetDisplayModelMapper : IPageBlockTypeDisplayModelMapper<Co
         foreach (var item in context.Items)
         {
             string language = codeLanguages.Single(x => x.CustomEntityId == item.DataModel.CodeLanguageId).Title;
-            var codeSnippetHtmlEncoder = _codeSnippetHtmlEncoders.Single(x => x.Language == language);
+            var codeSnippetHtmlEncoder = _codeSnippetHtmlEncoders.SingleOrDefault(x => x.Language == language)
+                ?? _codeSnippetHtmlEncoders.Single(x => x.Language == "default");
 
             var displayModel = new CodeSnippetDisplayModel();
             displayModel.RawHtml = codeSnippetHtmlEncoder.ConvertCodeSnippetToHtml(item.DataModel.Code);

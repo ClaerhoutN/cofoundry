@@ -8,10 +8,10 @@ namespace Cofoundry.Web.PageBlockTypes.CodeSnippet;
 public interface ICodeSnippetToken
 {
     string Value { get; }
-    string Kind { get; }
+    string CssClass { get; }
 }
 public class CodeSnippetTokenDefault : ICodeSnippetToken
 {
     public string Value { get; set; }
-    public string Kind { get; set; }
+    public string CssClass { get; } = "defaultToken";
 }
