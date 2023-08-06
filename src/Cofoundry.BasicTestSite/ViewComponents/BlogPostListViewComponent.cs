@@ -56,17 +56,17 @@ public class BlogPostListViewComponent : ViewComponent
     {
         var blogPosts = new List<BlogPostSummary>(customEntityResult.Items.Count());
 
-        var imageAssetIds = customEntityResult
-            .Items
-            .Select(i => (BlogPostDataModel)i.Model)
-            .Select(m => m.ThumbnailImageAssetId)
-            .Distinct();
+        //var imageAssetIds = customEntityResult
+        //    .Items
+        //    .Select(i => (BlogPostDataModel)i.Model)
+        //    .Select(m => m.ThumbnailImageAssetId)
+        //    .Distinct();
 
-        var images = await _contentRepository
-            .ImageAssets()
-            .GetByIdRange(imageAssetIds)
-            .AsRenderDetails()
-            .ExecuteAsync();
+        //var images = await _contentRepository
+        //    .ImageAssets()
+        //    .GetByIdRange(imageAssetIds)
+        //    .AsRenderDetails()
+        //    .ExecuteAsync();
 
         foreach (var customEntity in customEntityResult.Items)
         {
@@ -75,7 +75,7 @@ public class BlogPostListViewComponent : ViewComponent
             var blogPost = new BlogPostSummary();
             blogPost.Title = customEntity.Title;
             blogPost.ShortDescription = model.ShortDescription;
-            blogPost.ThumbnailImageAsset = images.GetOrDefault(model.ThumbnailImageAssetId);
+            //blogPost.ThumbnailImageAsset = images.GetOrDefault(model.ThumbnailImageAssetId);
             blogPost.FullPath = customEntity.PageUrls.FirstOrDefault();
             blogPost.PostDate = customEntity.CreateDate;
 

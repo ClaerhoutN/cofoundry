@@ -16,8 +16,8 @@
 
     @(await Cofoundry.Template.CustomEntityRegion("Body")
         .AllowMultipleBlocks()
-        .AllowBlockType<ContentSectionDataModel>()
-        .AllowBlockType<ContentSplitSectionDataModel>()
+@*      .AllowBlockType<ContentSectionDataModel>()
+        .AllowBlockType<ContentSplitSectionDataModel>() *@
         .EmptyContentMinHeight(500)
         .WrapWithTag("div", new{@class = "col-sm-8"})
         .InvokeAsync())

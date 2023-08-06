@@ -1,0 +1,12 @@
+﻿@model CodeSnippetDisplayModel
+@inject ICofoundryBlockTypeHelper<CodeSnippetDisplayModel> Cofoundry
+
+@{
+    Cofoundry.BlockType.UseDescription("Code snippet for the language of your choice with a rich color scheme");
+}
+<div class="code-snippet">
+    <div class="coding-language">@Model.CodeLanguage</div>
+    <div class="code">
+        @Model.RawHtml
+    </div>
+</div>

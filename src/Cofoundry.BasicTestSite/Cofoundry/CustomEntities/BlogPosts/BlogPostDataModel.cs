@@ -37,9 +37,9 @@ public class BlogPostDataModel : ICustomEntityDataModel
     [MultiLineText(Rows = 10)]
     public string ShortDescription { get; set; }
 
-    [Image(MinWidth = 460, MinHeight = 460)]
-    [Display(Name = "Thumbnail Image", Description = "Square image that displays against the blog in the listing page.")]
-    public int ThumbnailImageAssetId { get; set; }
+    //[Image(MinWidth = 460, MinHeight = 460)]
+    //[Display(Name = "Thumbnail Image", Description = "Square image that displays against the blog in the listing page.")]
+    //public int ThumbnailImageAssetId { get; set; }
 
     [Required]
     [Display(Name = "Categories", Description = "Drag and drop to customize the category ordering.")]
@@ -78,18 +78,18 @@ public class BlogPostDataModel : ICustomEntityDataModel
     //[RadioList(typeof(TestApiOptionSource))]
     //public int? TestNullableOption3 { get; set; }
 
-    [Required]
-    [ImageCollection]
-    [Display(Name = "Images")]
-    public ICollection<int> ThumbnailImageAssets { get; set; }
+    //[Required]
+    //[ImageCollection]
+    //[Display(Name = "Images")]
+    //public ICollection<int> ThumbnailImageAssets { get; set; }
 
-    [Display(Name = "Html")]
-    [Html(HtmlToolbarPreset.BasicFormatting, HtmlToolbarPreset.Headings, HtmlToolbarPreset.Media, HtmlToolbarPreset.Source)]
-    public string TestHtml { get; set; }
+    //[Display(Name = "Html")]
+    //[Html(HtmlToolbarPreset.BasicFormatting, HtmlToolbarPreset.Headings, HtmlToolbarPreset.Media, HtmlToolbarPreset.Source)]
+    //public string TestHtml { get; set; }
 
-    [Document]
-    [Display(Name = "Document")]
-    public int TestDocumentId { get; set; }
+    //[Document]
+    //[Display(Name = "Document")]
+    //public int TestDocumentId { get; set; }
 
     [Page]
     [Display(Name = "Page")]
