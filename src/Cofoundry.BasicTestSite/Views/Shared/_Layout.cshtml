@@ -39,6 +39,8 @@
     <link rel="stylesheet" href="~/Content/css/bootstrap.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Content/css/style.css" asp-append-version="true" />
     <link rel="icon" href="@Cofoundry.StaticFiles.ToAbsoluteWithFileVersion("/content/images/favicon.png")" type="image/png" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/styles/default.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/highlight.min.js"></script>
         
 </head>
 <body>
@@ -104,6 +106,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="~/Content/js/bootstrap.min.js"></script>
+    <script>hljs.highlightAll();</script>
 
     @if (IsSectionDefined("FooterScripts"))
     {

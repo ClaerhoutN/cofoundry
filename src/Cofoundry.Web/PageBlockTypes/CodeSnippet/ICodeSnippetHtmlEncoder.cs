@@ -16,4 +16,5 @@ public interface ICodeSnippetHtmlEncoder
     /// <returns>HtmlString version of the input string formatted to html.</returns>
     IHtmlContent ConvertCodeSnippetToHtml(string s);
     string Language { get; }
+    bool RequiresHighlighting { get; }
 }

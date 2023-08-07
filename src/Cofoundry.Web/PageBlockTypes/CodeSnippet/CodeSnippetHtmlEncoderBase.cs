@@ -16,9 +16,13 @@ public abstract class CodeSnippetHtmlEncoderBase : ICodeSnippetHtmlEncoder
         foreach(var token in GetTokens(s))
         {
             string encoded = HttpUtility.HtmlEncode(token.Value);
-            encoded = HtmlFormatter.ConvertLineBreaksToBrTags(encoded);
-            encoded = HtmlFormatter.ConvertSpacesToNbsp(encoded);
-            sb.Append(WrapWithTags(encoded, token.CssClass));
+            //encoded = HtmlFormatter.ConvertLineBreaksToBrTags(encoded);
+            //encoded = HtmlFormatter.ConvertSpacesToNbsp(encoded);
+            if(token.CssClass != null)
+            {
+                encoded = WrapWithTags(encoded, token.CssClass);
+            }
+            sb.Append(encoded);
         }
 
         return new HtmlString(sb.ToString());
@@ -26,4 +30,5 @@ public abstract class CodeSnippetHtmlEncoderBase : ICodeSnippetHtmlEncoder
     private string WrapWithTags(string s, string cssClass) => $"<span class=\"{cssClass}\">{s}</span>";
     protected abstract IEnumerable<ICodeSnippetToken> GetTokens(string code);
     public abstract string Language { get; }
+    public abstract bool RequiresHighlighting { get; }
 }

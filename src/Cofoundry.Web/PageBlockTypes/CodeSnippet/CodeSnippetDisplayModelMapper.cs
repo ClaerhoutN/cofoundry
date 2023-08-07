@@ -30,6 +30,7 @@ public class CodeSnippetDisplayModelMapper : IPageBlockTypeDisplayModelMapper<Co
 
             var displayModel = new CodeSnippetDisplayModel();
             displayModel.RawHtml = codeSnippetHtmlEncoder.ConvertCodeSnippetToHtml(item.DataModel.Code);
+            displayModel.RequiresHighlighting = codeSnippetHtmlEncoder.RequiresHighlighting;
             displayModel.CodeLanguage = language;
             result.Add(item, displayModel);
         }

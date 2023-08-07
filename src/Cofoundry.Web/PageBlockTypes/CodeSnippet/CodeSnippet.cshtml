@@ -6,7 +6,21 @@
 }
 <div class="code-snippet">
     <div class="coding-language">@Model.CodeLanguage</div>
-    <div class="code">
-        @Model.RawHtml
-    </div>
+    <pre>
+        @{
+            string language = Model.CodeLanguage == "C#" ? "csharp" : Model.CodeLanguage;
+        }
+        @if(Model.RequiresHighlighting)
+        {
+            <code class="language-@language">
+                @Model.RawHtml
+            </code>
+        }
+        else
+        {
+            <code class="language-plaintext language-nohighlight-@language">
+                @Model.RawHtml
+            </code>
+        }
+    </pre>
 </div>

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace Cofoundry.Web.PageBlockTypes.CodeSnippet;
 public class CodeSnippetHtmlEncoderDefault : CodeSnippetHtmlEncoderBase
 {
+    public override bool RequiresHighlighting => true;
     public override string Language => "default";
 
     protected override IEnumerable<ICodeSnippetToken> GetTokens(string code)

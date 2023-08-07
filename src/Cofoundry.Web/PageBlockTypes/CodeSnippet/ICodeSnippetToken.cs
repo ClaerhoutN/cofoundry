@@ -13,5 +13,5 @@ public interface ICodeSnippetToken
 public class CodeSnippetTokenDefault : ICodeSnippetToken
 {
     public string Value { get; set; }
-    public string CssClass { get; } = "defaultToken";
+    public string CssClass { get; } = null;
 }
