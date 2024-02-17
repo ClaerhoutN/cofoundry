@@ -25,13 +25,14 @@ public class CodeSnippetDisplayModelMapper : IPageBlockTypeDisplayModelMapper<Co
         foreach (var item in context.Items)
         {
             var language = codeLanguages.Single(x => x.CustomEntityId == item.DataModel.CodeLanguageId);
-            var codeSnippetHtmlEncoder = _codeSnippetHtmlEncoders.SingleOrDefault(x => x.Language == language.Title)
+            string displayName = ((CodeLanguageDataModel)language.Model).DisplayName;
+            var codeSnippetHtmlEncoder = _codeSnippetHtmlEncoders.SingleOrDefault(x => x.Language == (string.IsNullOrEmpty(displayName) ? language.Title : displayName))
                 ?? _codeSnippetHtmlEncoders.Single(x => x.Language == "default");
 
             var displayModel = new CodeSnippetDisplayModel();
             displayModel.RawHtml = codeSnippetHtmlEncoder.ConvertCodeSnippetToHtml(item.DataModel.Code);
             displayModel.RequiresHighlighting = codeSnippetHtmlEncoder.RequiresHighlighting;
-            displayModel.CodeLanguage = language.Title;
+            displayModel.CodeLanguage = string.IsNullOrEmpty(displayName) ? language.Title : displayName;
             string highlightJSAlias = ((CodeLanguageDataModel)language.Model).HighlightJSAlias;
             displayModel.HightlightJSAlias = string.IsNullOrWhiteSpace(highlightJSAlias) ? displayModel.CodeLanguage : highlightJSAlias;
             result.Add(item, displayModel);
